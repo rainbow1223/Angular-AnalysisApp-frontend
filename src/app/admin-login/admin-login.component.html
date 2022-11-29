@@ -1,0 +1,49 @@
+<section class="page-area">
+  <div class="row">
+    <h2>Admin Log In</h2>
+    <div class="login-container">
+      <!-- Begin # Login Form -->
+      <form *ngIf="!isLoggedIn" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+        <input type="text" class="form-control" name="email" placeholder="Enter your email" [(ngModel)]="form.email" required
+          #email="ngModel" />
+        <div class="alert alert-danger" role="alert" *ngIf="email.errors && f.submitted">
+          Username is required!
+        </div>
+        <input type="password" class="form-control" name="password" placeholder="Enter your password" [(ngModel)]="form.password" required minlength="6"
+          #password="ngModel" />
+        <div class="alert alert-danger" role="alert" *ngIf="password.errors && f.submitted">
+          <div *ngIf="password.errors['required']">Password is required</div>
+          <div *ngIf="password.errors['minlength']">
+            Password must be at least 6 characters
+          </div>
+        </div>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox"> Remember me
+          </label>
+        </div>
+        <div>
+          <button type="submit" class="btn btn-login-width">Login</button>
+        </div>
+        <div>
+          <a id="login_lost_btn" type="button" href="#" class="btn btn-link">Reset Password?</a>
+          <a id="login_register_btn" type="button" class="nav-link" routerLink="/admin-register"class="btn btn-link">Register</a>
+        </div>
+        <div class="form-group">
+          <div class="alert alert-danger" role="alert" *ngIf="f.submitted && isLoginFailed">
+            Login failed: {{ errorMessage }}
+          </div>
+        </div>
+      </form>
+      <div class="login-pan">
+        <a class="btn log-facebook" target="_blank" href="#"><i class="fa fa-facebook" area-hidden="true"></i>Continue
+          with Facebook</a>
+        <a class="btn log-google" target="_blank" href="#"><i class="fa fa-google" area-hidden="true"></i>Continue with
+          Google</a>
+        <a class="btn log-linkedin" target="_blank" href="#"><i class="fa fa-linkedin" area-hidden="true"></i>Continue
+          with LinkedIn</a>
+      </div>
+
+    </div>
+  </div>
+</section>
