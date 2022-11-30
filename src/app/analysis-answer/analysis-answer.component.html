@@ -1,0 +1,81 @@
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <form [formGroup]="form" (ngSubmit)="save(form.value)">
+                <div class="form-group">
+                    <label for="questionId" class="form-label label-text">Actual Question
+                        <!-- <p-badge value="!" pTooltip="{{tooltip.errorToReplaceMessage}}" tooltipPosition="top">
+                        </p-badge> -->
+                    </label>
+                    <p-dropdown name="questionId" [options]="questionList" formControlName="questionId"
+                        optionLabel="text" optionValue="value" (onChange)="onChangeSelectQuestion($event)"
+                        placeholder="Select" [showClear]="true"
+                        [ngClass]="{ 'ng-invalid ng-dirty': submitted && f['questionId'].errors }"></p-dropdown>
+                    <small
+                        *ngIf="(f['questionId'].dirty || f['questionId'].touched || (submitted && f['questionId'].errors)) && f['questionId'].invalid"
+                        class="p-error block">This field is required.</small>
+                </div>
+                <div class="form-group">
+                    <label for="questionPointTo" class="form-label label-text">Entity Question Point To
+                        <!-- <p-badge value="!" pTooltip="{{tooltip.actualCompensatorMessage}}" tooltipPosition="top">
+                        </p-badge> -->
+                    </label>
+                    <input type="text" name="questionPointTo" pInputText formControlName="questionPointTo"
+                        [readonly]="true" [ngClass]="{ 'ng-invalid ng-dirty': submitted && f['questionId'].errors }" />
+                    <small
+                        *ngIf="(f['questionPointTo'].dirty || f['questionPointTo'].touched || (submitted && f['questionPointTo'].errors)) && f['questionPointTo'].invalid"
+                        class="p-error block">This field is required.</small>
+
+                </div>
+                <div class="form-group">
+                    <label for="answerPointTo" class="form-label label-text">Information Answer Point To
+                        <p-badge value="!" (click)="showTooltip('informationAnswerPoint')">
+                        </p-badge>
+                    </label>
+                    <input type="text" name="answerPointTo" pInputText formControlName="answerPointTo"
+                        [ngClass]="{ 'ng-invalid ng-dirty': submitted && f['answerPointTo'].errors }" />
+                    <small
+                        *ngIf="(f['answerPointTo'].dirty || f['answerPointTo'].touched || (submitted && f['answerPointTo'].errors)) && f['answerPointTo'].invalid"
+                        class="p-error block">This field is required.</small>
+                </div>
+                <div class="row">
+                    <label for="actualAnswer" class="form-label label-text">Actual Answer
+                        <p-badge value="!" (click)="showTooltip('actualAnswerMessage')">
+                        </p-badge>
+                    </label>
+                    <p-editor name="actualAnswer" formControlName="actualAnswer" [style]="{'height':'280px'}">
+                    </p-editor>
+                </div>
+                <div class="col-12 p-2">
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <dx-button stylingMode="contained" text="Save" type="success" [width]="120"
+                            [useSubmitBehavior]="true">
+                        </dx-button>
+                        <dx-button stylingMode="contained" text="Cancel" type="danger" [width]="120">
+                        </dx-button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!------ Tooltip ------->
+<p-toast class="custom-toast" position="top-center" key="tooltip" (onClose)="closeTooltip()" [baseZIndex]="50000">
+    <ng-template let-message pTemplate="message">
+        <div class="flex flex-column" style="flex: 1">
+            <div class="text-center">
+                <br />
+                <br />
+                <p style="text-align: left;">{{message.detail}}</p>
+            </div>
+            <div class="col-12 p-2">
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <button type="button" pButton (click)="closeTooltip()" label="Got it"
+                        class="p-button-secondary"></button>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</p-toast>
