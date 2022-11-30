@@ -1,0 +1,309 @@
+<dx-tab-panel [height]="660" [selectedIndex]="0" (onSelectionChanged)="onTabChange($event)" [loop]="true"
+    [animationEnabled]="true" [swipeEnabled]="false" #body>
+    <dxi-item title="Analysis">
+        <div class="row">
+            <ejs-splitter id="splitter" [paneSettings]="paneSettings" orientation="Vertical" separatorSize="5"
+                height='685px'>
+                <e-panes>
+                    <e-pane size='24%' min='0%' max='24%' [collapsible]='true' [resizable]='true'>
+                        <ng-template #content>
+                            <div class="col-12 mb-1" id="underAnalysis">
+                                <label class="label-text">Entity Under Analysis
+                                    <!-- &nbsp;<span id="under-analysis-hint" class="badge">!</span> -->
+                                </label>
+                                <!-- <dx-popover target="#under-analysis-hint" [width]="badgewidth" position="top"
+                                    showEvent="dxhoverstart" hideEvent="dxhoverend">
+                                    Please,provide description
+                                </dx-popover> -->
+
+                                <div class="col-12 pt-1">
+                                    <dx-html-editor height="130px" style="box-sizing: none ;" #actualAnalysisRef
+                                        [(value)]="model.entityUnderAnalysis" [readOnly]="true">
+                                    </dx-html-editor>
+
+                                    <dx-context-menu [items]="actualAnalysisContextMenuItems"
+                                        (onShowing)="prepActualAnalysisCtxMenu($event)"
+                                        (onItemClick)="onClickCtxMenuItem($event)" target="#actualAnalysis">
+                                    </dx-context-menu>
+                                </div>
+                            </div>
+                            <dx-context-menu [items]="entityUnderAnalysisContextMenuItems"
+                                (onShowing)="prepUnderAnalysisCtxMenu()" (onItemClick)="onClickCtxMenuItem($event)"
+                                target="#underAnalysis">
+                            </dx-context-menu>
+                        </ng-template>
+                    </e-pane>
+                    <e-pane size='76%'>
+                        <ng-template #content>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="analysisFrom" class="form-label label-text">From Person
+                                        <p-badge value="!" pTooltip="{{tooltip.fromPersonHint}}" tooltipPosition="top">
+                                        </p-badge>
+                                    </label>
+                                    <p-dropdown name="analysisFrom" [options]="modelSvc.personList" [(ngModel)]="model.analysisFrom"
+                                        optionLabel="name" optionValue="id"></p-dropdown>
+                                </div>
+                                <div class="form-group">
+                                    <label for="analysisFrom" class="form-label label-text">Analysis Subject
+                                        <p-badge value="!" pTooltip="{{tooltip.analysisSubjectHint}}" tooltipPosition="top">
+                                        </p-badge>
+                                    </label>
+                                    <input type="text" pInputText [(ngModel)]="model.analysisSubject"/>
+                                </div>
+                                <label class="label-text">Actual Analysis
+                                    <p-badge value="!" pTooltip="{{tooltip.actualAnalysisHint}}" tooltipPosition="top">
+                                    </p-badge>
+                                </label>
+                                <div class="col-12 pt-1" id="actualAnalysis">
+                                    <dx-html-editor height="270" #actualAnalysisRef [(value)]="model.actualAnalysis">
+                                        <dxo-toolbar [multiline]="true">
+                                            <dxi-item name="undo"></dxi-item>
+                                            <dxi-item name="redo"></dxi-item>
+                                            <dxi-item name="separator"></dxi-item>
+                                            <dxi-item name="size"
+                                                [acceptedValues]="['8pt', '10pt', '12pt', '14pt', '18pt', '24pt', '36pt']">
+                                            </dxi-item>
+                                            <dxi-item name="font" [acceptedValues]="[
+                                              'Arial',
+                                              'Courier New',
+                                              'Georgia',
+                                              'Impact',
+                                              'Lucida Console',
+                                              'Tahoma',
+                                              'Times New Roman',
+                                              'Verdana'
+                                            ]"></dxi-item>
+                                            <dxi-item name="separator"></dxi-item>
+                                            <dxi-item name="bold"></dxi-item>
+                                            <dxi-item name="italic"></dxi-item>
+                                            <dxi-item name="strike"></dxi-item>
+                                            <dxi-item name="underline"></dxi-item>
+                                            <dxi-item name="separator"></dxi-item>
+                                            <dxi-item name="alignLeft"></dxi-item>
+                                            <dxi-item name="alignCenter"></dxi-item>
+                                            <dxi-item name="alignRight"></dxi-item>
+                                            <dxi-item name="alignJustify"></dxi-item>
+                                            <dxi-item name="separator"></dxi-item>
+                                            <dxi-item name="orderedList"></dxi-item>
+                                            <dxi-item name="bulletList"></dxi-item>
+                                            <dxi-item name="separator"></dxi-item>
+                                            <dxi-item name="header" [acceptedValues]="[false, 1, 2, 3, 4, 5]">
+                                            </dxi-item>
+                                            <dxi-item name="separator"></dxi-item>
+                                            <dxi-item name="color"></dxi-item>
+                                            <dxi-item name="background"></dxi-item>
+                                            <dxi-item name="separator"></dxi-item>
+                                            <dxi-item name="link"></dxi-item>
+                                            <dxi-item name="image"></dxi-item>
+                                            <dxi-item name="separator"></dxi-item>
+                                            <dxi-item name="clear"></dxi-item>
+                                            <dxi-item name="codeBlock"></dxi-item>
+                                            <dxi-item name="blockquote"></dxi-item>
+                                            <dxi-item name="separator"></dxi-item>
+                                            <dxi-item name="insertTable"></dxi-item>
+                                            <dxi-item name="deleteTable"></dxi-item>
+                                            <dxi-item name="insertRowAbove"></dxi-item>
+                                            <dxi-item name="insertRowBelow"></dxi-item>
+                                            <dxi-item name="deleteRow"></dxi-item>
+                                            <dxi-item name="insertColumnLeft"></dxi-item>
+                                            <dxi-item name="insertColumnRight"></dxi-item>
+                                            <dxi-item name="deleteColumn"></dxi-item>
+                                        </dxo-toolbar>
+                                        <dxo-media-resizing [enabled]="true"> </dxo-media-resizing>
+                                    </dx-html-editor>
+
+                                    <p-badge id="actualAnalysisCountBadge" value="{{totalCompensator}}">
+                                    </p-badge>
+                                </div>
+                                <dx-context-menu [items]="actualAnalysisContextMenuItems"
+                                    (onShowing)="prepActualAnalysisCtxMenu($event)"
+                                    (onItemClick)="onClickCtxMenuItem($event)" target="#actualAnalysis">
+                                </dx-context-menu>
+                            </div>
+                        </ng-template>
+                    </e-pane>
+                </e-panes>
+            </ejs-splitter>
+        </div>
+        <!-- <div class="col-12 p-2">
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <dx-button stylingMode="contained" text="Save Analysis" type="success" [width]="120"
+                    (onClick)="saveAnalysis()">
+                </dx-button>
+                <dx-button stylingMode="contained" text="Cancel" type="danger" [width]="120">
+                </dx-button>
+            </div>
+        </div> -->
+    </dxi-item>
+    <dxi-item title="Analysis Question">
+
+        <!-- <dx-data-grid id="gridContainer" [dataSource]="model.questionList" [remoteOperations]="false"
+            [allowColumnReordering]="true" [rowAlternationEnabled]="true" [showBorders]="true" [pager]="pager"
+            (onContentReady)="contentReady($event)">
+            <dxo-paging [pageSize]="10"></dxo-paging>
+            <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[10, 25, 50, 100]"></dxo-pager>
+            <dxo-search-panel [visible]="true" [highlightCaseSensitive]="true"></dxo-search-panel>
+            <dxi-column caption="Sales Amount" [calculateCellValue]="calculateSalesAmount">
+            </dxi-column>
+            <dxi-column dataField="actualQuestion" dataType="string" caption="Actual Question"></dxi-column>
+            <dxi-column dataField="questionPointTo" dataType="string" caption="Question Point To"></dxi-column>
+            <dxi-column dataField="questionDate" dataType="date" caption="Question Date"></dxi-column>
+            <dxi-column type="buttons" [width]="110">
+                <dxi-button hint="Edit" icon="edit"></dxi-button>
+                <dxi-button hint="Delete" icon="trash"></dxi-button>
+            </dxi-column>
+        </dx-data-grid> -->
+
+        <p-table [value]="model.questionList" responsiveLayout="scroll">
+            <ng-template pTemplate="header">
+                <tr> 
+                    <th>SL.</th>
+                    <th>Actual Question</th>
+                    <th>Question Point To</th>
+                    <th>Question Date</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item let-row="rowIndex">
+                <tr>
+                    <td>{{row+1}}</td>
+                    <td>{{item.actualQuestion}}</td>
+                    <td>{{item.questionPointTo}}</td>
+                    <td>{{item.questionDate}}</td>
+                    <td>action</td>
+                </tr>
+            </ng-template>
+        </p-table>
+
+
+
+    </dxi-item>
+    <dxi-item title="List of Error">
+
+        <dx-data-grid id="gridContainer" [dataSource]="model.questionList" [remoteOperations]="false"
+            [allowColumnReordering]="true" [rowAlternationEnabled]="true" [showBorders]="true" [pager]="pager"
+            (onContentReady)="contentReady($event)">
+            <dxo-paging [pageSize]="10"></dxo-paging>
+            <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[10, 25, 50, 100]"></dxo-pager>
+            <dxo-search-panel [visible]="true" [highlightCaseSensitive]="true"></dxo-search-panel>
+            <dxi-column caption="Sales Amount">
+            </dxi-column>
+            <dxi-column dataField="actualQuestion" dataType="string" caption="Error Number"></dxi-column>
+            <dxi-column dataField="actualError" dataType="string" caption="Actual Error"></dxi-column>
+            <dxi-column dataField="errorPointTo" dataType="date" caption="Error Point To"></dxi-column>
+            <dxi-column dataField="errorDate" dataType="date" caption="Error Date"></dxi-column>
+            <dxi-column type="buttons" [width]="110" caption="Action">
+                <dxi-button hint="Edit" icon="edit"></dxi-button>
+                <dxi-button hint="Delete" icon="trash"></dxi-button>
+            </dxi-column>
+        </dx-data-grid>
+
+
+        <!-- <p-table [value]="model.errorList" responsiveLayout="scroll">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="width: 10%;">Error Number</th>
+                    <th style="width: 30%;">Actual Error</th>
+                    <th style="width: 20%;">Error Point To</th>
+                    <th style="width: 20%;">Error Date</th>
+                    <th style="width: 10%;">Action</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-entity let-rowIndex="rowIndex">
+                <tr>
+                    <td>{{rowIndex+1}}</td>
+                    <td>{{entity.actualError}}</td>
+                    <td>{{entity.errorPointTo}}</td>
+                    <td>{{entity.errorDate}}</td>
+                    <td><i (click)="removeAnalysisError(entity)" class="pi false-icon pi-times-circle text-danger"></i>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table> -->
+    </dxi-item>
+    <dxi-item title="List of Compensator">
+
+        <dx-data-grid id="gridContainer" [dataSource]="model.questionList" [remoteOperations]="false"
+            [allowColumnReordering]="true" [rowAlternationEnabled]="true" [showBorders]="true" [pager]="pager"
+            (onContentReady)="contentReady($event)">
+            <dxo-paging [pageSize]="10"></dxo-paging>
+            <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[10, 25, 50, 100]"></dxo-pager>
+            <dxo-search-panel [visible]="true" [highlightCaseSensitive]="true"></dxo-search-panel>
+            <dxi-column caption="Sales Amount" >
+            </dxi-column>
+            <dxi-column dataField="actualQuestion" dataType="string" caption="Compensator Number"></dxi-column>
+            <dxi-column dataField="actualCompensator" dataType="string" caption="Actual Compensator"></dxi-column>
+            <dxi-column dataField="compensatorDateTime" dataType="date" caption="Compensator Date"></dxi-column>
+            <dxi-column type="buttons" [width]="110" caption="Action">
+                <dxi-button hint="Edit" icon="edit"></dxi-button>
+                <dxi-button hint="Delete" icon="trash"></dxi-button>
+            </dxi-column>
+        </dx-data-grid>
+        <!-- <p-table [value]="model.compensatorList" responsiveLayout="scroll">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="width: 10%;">Compensator Number</th>
+                    <th style="width: 30%;">Actual Compensator</th>
+                    <th style="width: 20%;">Compensator Date</th>
+                    <th style="width: 10%;">Action</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-entity let-rowIndex="rowIndex">
+                <tr>
+                    <td>{{rowIndex+1}}</td>
+                    <td>{{entity.actualCompensator}}</td>
+                    <td>{{entity.compensatorDateTime | date:'fullDate'}}</td>
+                    <td><i (click)="removeAnalysisCompensator(entity)"
+                            class="pi false-icon pi-times-circle text-danger"></i></td>
+                </tr>
+            </ng-template>
+        </p-table> -->
+    </dxi-item>
+    <dxi-item title="List of Problems">
+        <dx-data-grid id="gridContainer" [dataSource]="model.questionList" [remoteOperations]="false"
+            [allowColumnReordering]="true" [rowAlternationEnabled]="true" [showBorders]="true" [pager]="pager"
+            (onContentReady)="contentReady($event)">
+            <dxo-paging [pageSize]="10"></dxo-paging>
+            <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[10, 25, 50, 100]"></dxo-pager>
+            <dxo-search-panel [visible]="true" [highlightCaseSensitive]="true"></dxo-search-panel>
+            <dxi-column caption="Sales Amount" >
+            </dxi-column>
+            <dxi-column dataField="actualQuestion" dataType="string" caption="Compensator Number"></dxi-column>
+            <dxi-column dataField="actualCompensator" dataType="string" caption="Actual Compensator"></dxi-column>
+            <dxi-column dataField="compensatorDateTime" dataType="date" caption="Compensator Date"></dxi-column>
+            <dxi-column type="buttons" [width]="110" caption="Action">
+                <dxi-button hint="Edit" icon="edit"></dxi-button>
+                <dxi-button hint="Delete" icon="trash"></dxi-button>
+            </dxi-column>
+        </dx-data-grid>
+
+        <!-- <p-table [value]="model.compensatorList" responsiveLayout="scroll">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="width: 10%;">Compensator Number</th>
+                    <th style="width: 30%;">Actual Compensator</th>
+                    <th style="width: 20%;">Compensator Date</th>
+                    <th style="width: 10%;">Action</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-entity let-rowIndex="rowIndex">
+                <tr>
+                    <td>{{rowIndex+1}}</td>
+                    <td>{{entity.actualCompensator}}</td>
+                    <td>{{entity.compensatorDateTime | date:'fullDate'}}</td>
+                    <td><i (click)="removeAnalysisCompensator(entity)"
+                            class="pi false-icon pi-times-circle text-danger"></i></td>
+                </tr>
+            </ng-template>
+        </p-table> -->
+    </dxi-item>
+</dx-tab-panel>
+
+<div class="col-12 p-2" [hidden]="hideAnalysisBtn">
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <dx-button stylingMode="contained" text="Add Analysis" type="success" [width]="120" (onClick)="saveAnalysis()">
+        </dx-button>
+        <dx-button stylingMode="contained" text="Cancel" type="danger" [width]="120">
+        </dx-button>
+    </div>
+</div>

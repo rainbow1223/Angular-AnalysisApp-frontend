@@ -1,0 +1,416 @@
+<style>
+    .p-toast {
+        width: 100% !important;
+    }
+</style>
+<dx-tab-panel [height]="660" [selectedIndex]="0" (onSelectionChanged)="onTabChange($event)" [loop]="true"
+    [animationEnabled]="true" [swipeEnabled]="false" #body>
+    <dxi-item title="Analysis">
+        <form #analysisForm="ngForm">
+            <div class="row" >
+                <ejs-splitter id="splitter" [paneSettings]="paneSettings" orientation="Vertical" separatorSize="5"
+                    height='685px'>
+                    <e-panes>
+                        <e-pane size='24%' min='0%' max='24%' [collapsible]='true' [resizable]='true'>
+                            <ng-template #content>
+                                <div class="col-12 mb-1" id="underAnalysis">
+                                    <label class="label-text">Entity Under Analysis
+                                    </label>
+                                    <div class="col-12 pt-1" id="entityUnderAnalysis">
+                                        <dx-html-editor height="130px" style="box-sizing: none ;" #actualAnalysisRef
+                                            [(value)]="model.entityUnderAnalysis" [readOnly]="true">
+                                        </dx-html-editor>
+                                        <p-badge id="entityUnderAnalysisBadge" value="{{totalError}}">
+                                        </p-badge>
+                                        <dx-context-menu [items]="actualAnalysisContextMenuItems"
+                                            (onShowing)="prepActualAnalysisCtxMenu($event)"
+                                            (onItemClick)="onClickCtxMenuItem($event)" target="#actualAnalysis">
+                                        </dx-context-menu>
+                                    </div>
+                                </div>
+                                <dx-context-menu [items]="entityUnderAnalysisContextMenuItems"
+                                    (onShowing)="prepUnderAnalysisCtxMenu()" (onItemClick)="onClickCtxMenuItem($event)"
+                                    target="#underAnalysis">
+                                </dx-context-menu>
+                            </ng-template>
+                        </e-pane>
+                        <e-pane size='76%'>
+                            <ng-template #content>
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label for="analysisFrom" class="form-label label-text">From Person
+                                            <p-badge (click)="showTooltip('fromPersonHint')" value="!"></p-badge>
+                                        </label>
+                                        <p-dropdown name="analysisFrom" [options]="modelSvc.userList"
+                                            [(ngModel)]="model.analysisFrom" optionLabel="firstName" optionValue="email"
+                                            [disabled]="true"></p-dropdown>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="analysisSubject" class="form-label label-text">Analysis Subject
+                                            <p-badge (click)="showTooltip('analysisSubjectHint')" value="!"></p-badge>
+                                       </label>
+                                        <input type="text" name="analysisSubject" pInputText [(ngModel)]="model.analysisSubject" appValidate />
+                                    </div>
+                                    <label class="label-text">Actual Analysis
+                                        <p-badge (click)="showTooltip('actualAnalysisHint')" value="!"></p-badge>
+                                      </label>
+                                    <div class="col-12 pt-1" id="actualAnalysis">
+                                        <dx-html-editor height="270" #actualAnalysisRef name="actualAnalysis"
+                                            [(value)]="model.actualAnalysis">
+                                            <dxo-toolbar [multiline]="true">
+                                                <dxi-item name="undo"></dxi-item>
+                                                <dxi-item name="redo"></dxi-item>
+                                                <dxi-item name="separator"></dxi-item>
+                                                <dxi-item name="size"
+                                                    [acceptedValues]="['8pt', '10pt', '12pt', '14pt', '18pt', '24pt', '36pt']">
+                                                </dxi-item>
+                                                <dxi-item name="font" [acceptedValues]="[
+                                              'Arial',
+                                              'Courier New',
+                                              'Georgia',
+                                              'Impact',
+                                              'Lucida Console',
+                                              'Tahoma',
+                                              'Times New Roman',
+                                              'Verdana'
+                                            ]"></dxi-item>
+                                                <dxi-item name="separator"></dxi-item>
+                                                <dxi-item name="bold"></dxi-item>
+                                                <dxi-item name="italic"></dxi-item>
+                                                <dxi-item name="strike"></dxi-item>
+                                                <dxi-item name="underline"></dxi-item>
+                                                <dxi-item name="separator"></dxi-item>
+                                                <dxi-item name="alignLeft"></dxi-item>
+                                                <dxi-item name="alignCenter"></dxi-item>
+                                                <dxi-item name="alignRight"></dxi-item>
+                                                <dxi-item name="alignJustify"></dxi-item>
+                                                <dxi-item name="separator"></dxi-item>
+                                                <dxi-item name="orderedList"></dxi-item>
+                                                <dxi-item name="bulletList"></dxi-item>
+                                                <dxi-item name="separator"></dxi-item>
+                                                <dxi-item name="header" [acceptedValues]="[false, 1, 2, 3, 4, 5]">
+                                                </dxi-item>
+                                                <dxi-item name="separator"></dxi-item>
+                                                <dxi-item name="color"></dxi-item>
+                                                <dxi-item name="background"></dxi-item>
+                                                <dxi-item name="separator"></dxi-item>
+                                                <dxi-item name="link"></dxi-item>
+                                                <dxi-item name="image"></dxi-item>
+                                                <dxi-item name="separator"></dxi-item>
+                                                <dxi-item name="clear"></dxi-item>
+                                                <dxi-item name="codeBlock"></dxi-item>
+                                                <dxi-item name="blockquote"></dxi-item>
+                                                <dxi-item name="separator"></dxi-item>
+                                                <dxi-item name="insertTable"></dxi-item>
+                                                <dxi-item name="deleteTable"></dxi-item>
+                                                <dxi-item name="insertRowAbove"></dxi-item>
+                                                <dxi-item name="insertRowBelow"></dxi-item>
+                                                <dxi-item name="deleteRow"></dxi-item>
+                                                <dxi-item name="insertColumnLeft"></dxi-item>
+                                                <dxi-item name="insertColumnRight"></dxi-item>
+                                                <dxi-item name="deleteColumn"></dxi-item>
+                                            </dxo-toolbar>
+                                            <dxo-media-resizing [enabled]="true"> </dxo-media-resizing>
+                                        </dx-html-editor>
+
+                                        <p-badge id="actualAnalysisCountBadge" value="{{totalCompensator}}">
+                                        </p-badge>
+                                    </div>
+                                    <dx-context-menu [items]="actualAnalysisContextMenuItems"
+                                        (onShowing)="prepActualAnalysisCtxMenu($event)"
+                                        (onItemClick)="onClickCtxMenuItem($event)" target="#actualAnalysis">
+                                    </dx-context-menu>
+                                </div>
+                            </ng-template>
+                        </e-pane>
+                    </e-panes>
+                </ejs-splitter>
+            </div>
+        </form>
+    </dxi-item>
+    <dxi-item title="Analysis Question">
+        <p-table [value]="model.questionList" responsiveLayout="scroll" [scrollable]="true" scrollHeight="600px">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th class="d-flex justify-content-center">Question Number</th>
+                    <th class="d-flex justify-content-center">Actual Question</th>
+                    <th class="d-flex justify-content-center">Question Point To</th>
+                    <th class="d-flex justify-content-center">Question Date</th>
+                    <th class="d-flex justify-content-center">Action</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item let-row="rowIndex">
+                <tr>
+                    <td class="d-flex justify-content-center">{{row+1}}</td>
+                    <td class="d-flex justify-content-center">{{item.actualQuestion | removetag}}</td>
+                    <td class="d-flex justify-content-center">{{item.questionPointTo}}</td>
+                    <td class="d-flex justify-content-center">{{item.questionDate | date:'fullDate'}}</td>
+                    <td class="d-flex justify-content-center">
+                        <i class="pi pi-minus-circle text-danger" (click)="removeAnalysisQuestion(item)"
+                            title="Remove question"></i>
+                        <i class="pi pi-plus-circle text-success" (click)="openQuestionModal($event)"
+                            title="Add question"></i>
+                        <i class="pi pi-reply text-primary" (click)="openAnswerModal(item)" title="Answer question"></i>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage" let-columns>
+                <tr>
+                    <td>
+                        No question
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="d-flex justify-content-center">
+                        <i class="pi pi-plus-circle text-success" (click)="openQuestionModal($event)"
+                            title="Add question"></i>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+
+
+
+    </dxi-item>
+    <dxi-item title="Analysis Answer">
+        <p-table [value]="model.answerList" responsiveLayout="scroll" [scrollable]="true" scrollHeight="600px">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th class="d-flex justify-content-center" style="width:5%">Answer Number</th>
+                    <th class="d-flex justify-content-center" style="width:50%">Actual Answer</th>
+                    <th class="d-flex justify-content-center" style="width:20%">Information Answer Point To</th>
+                    <th class="d-flex justify-content-center" style="width:10%">Entity Question Point To</th>
+                    <th class="d-flex justify-content-center" style="width:10%">Answer Date</th>
+                    <th class="d-flex justify-content-center" style="width:5%">Action</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item let-row="rowIndex">
+                <tr>
+                    <td class="d-flex justify-content-center">{{row+1}}</td>
+                    <td class="d-flex justify-content-center">{{item.actualAnswer | removetag}}</td>
+                    <td class="d-flex justify-content-center">{{item.answerPointTo}}</td>
+                    <td class="d-flex justify-content-center">{{item.questionPointTo}}</td>
+                    <td class="d-flex justify-content-center">{{item.answerDateTime | date:'fullDate'}}</td>
+                    <td class="d-flex justify-content-center">
+                        <i class="pi pi-minus-circle text-danger" (click)="removeAnalysisAnswer(item)"
+                            title="Remove answer"></i>
+                        <i class="pi pi-plus-circle text-success" (click)="openAnswerModal(item)"
+                            title="Add answer"></i>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td>
+                        No answer
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="d-flex justify-content-center">
+                        <i class="pi pi-plus-circle text-success" (click)="openAnswerModal()" title="Add answer"></i>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+
+
+
+    </dxi-item>
+    <dxi-item title="List of Error">
+        <p-table [value]="model.errorList" responsiveLayout="scroll" [scrollable]="true" scrollHeight="600px">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th class="d-flex justify-content-center">Error Number</th>
+                    <th class="d-flex justify-content-center">Actual Error</th>
+                    <th class="d-flex justify-content-center">Error Point To</th>
+                    <th class="d-flex justify-content-center">Error Date</th>
+                    <th class="d-flex justify-content-center">Action</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-entity let-rowIndex="rowIndex">
+                <tr>
+                    <td class="d-flex justify-content-center">{{rowIndex+1}}</td>
+                    <td class="d-flex justify-content-center">{{entity.actualError}}</td>
+                    <td class="d-flex justify-content-center">{{entity.errorPointTo}}</td>
+                    <td class="d-flex justify-content-center">{{entity.errorDate}}</td>
+                    <td class="d-flex justify-content-center">
+                        <i class="pi pi-minus-circle text-danger" (click)="removeAnalysisError(entity)"
+                            title="Remove error"></i>
+                        <i class="pi pi-plus-circle text-success" (click)="openErrorModal($event)"
+                            title="Add error"></i>
+                        <i class="pi pi-reply text-primary" (click)="openProblemModal(entity)"
+                            title="Create a problem"></i>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td [attr.colspan]="2">
+                        No error
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="d-flex justify-content-center">
+                        <i class="pi pi-plus-circle text-success" (click)="openErrorModal($event)"
+                            title="Add error"></i>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </dxi-item>
+    <dxi-item title="List of Compensator">
+        <p-table [value]="model.compensatorList" responsiveLayout="scroll" [scrollable]="true" scrollHeight="600px">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th class="d-flex justify-content-center">Compensator Number</th>
+                    <th class="d-flex justify-content-center">Actual Compensator</th>
+                    <th class="d-flex justify-content-center">Compensator Date</th>
+                    <th class="d-flex justify-content-center">Action</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-entity let-rowIndex="rowIndex">
+                <tr>
+                    <td class="d-flex justify-content-center">{{rowIndex+1}}</td>
+                    <td class="d-flex justify-content-center">{{entity.actualCompensator}}</td>
+                    <td class="d-flex justify-content-center">{{entity.compensatorDateTime | date:'fullDate'}}</td>
+                    <td class="d-flex justify-content-center">
+                        <i class="pi pi-minus-circle text-danger" (click)="removeAnalysisCompensator(entity)"
+                            title="Remove compensator"></i>
+                        <i class="pi pi-plus-circle text-success" (click)="openCompensatorModal($event)"
+                            title="Add compensator"></i>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage" let-columns>
+                <tr>
+                    <td [attr.colspan]="3">
+                        No compensator
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td class="d-flex justify-content-center">
+                        <i class="pi pi-plus-circle text-success" (click)="openCompensatorModal($event)"
+                            title="Add compensator"></i>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </dxi-item>
+    <dxi-item title="List of Problems">
+        <p-table [value]="model.problemList" responsiveLayout="scroll" [scrollable]="true" scrollHeight="600px">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th class="d-flex justify-content-center">Problem Number</th>
+                    <th class="d-flex justify-content-center">Actual Problem</th>
+                    <th class="d-flex justify-content-center">Problem Name</th>
+                    <th class="d-flex justify-content-center">From Actual Error</th>
+                    <th class="d-flex justify-content-center">Action</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-entity let-rowIndex="rowIndex">
+                <tr>
+                    <td class="d-flex justify-content-center">{{rowIndex+1}}</td>
+                    <td class="d-flex justify-content-center">{{entity.actualProblem}}</td>
+                    <td class="d-flex justify-content-center">{{entity.problemName}}</td>
+                    <td class="d-flex justify-content-center">{{entity.actualError}}</td>
+                    <td class="d-flex justify-content-center">
+                        <i (click)="removeAnalysisProblem(entity)" class="pi pi-minus-circle text-danger"
+                            title="Remove problem"></i>
+                        <i (click)="openProblemModal(entity)" class="pi pi-plus-circle text-success"
+                            title="Add problem"></i>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage" let-columns>
+                <tr>
+                    <td [attr.colspan]="3">
+                        No problem
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td class="d-flex justify-content-center">
+                        <i (click)="openProblemModal()" class="pi pi-plus-circle text-success" title="Add problem"></i>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </dxi-item>
+    <!-- <dxi-item title="About Feedback">
+        <p-table [value]="model.feedbackList" responsiveLayout="scroll" [scrollable]="true" scrollHeight="600px">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th class="d-flex justify-content-center">Application Name</th>
+                    <th class="d-flex justify-content-center">Communication Function</th>
+                    <th class="d-flex justify-content-center">Actual Compensator Replaced</th>
+                    <th class="d-flex justify-content-center">Feedback Subject</th>
+                    <th class="d-flex justify-content-center">Feedback Application</th>
+                    <th class="d-flex justify-content-center">Action</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-entity let-rowIndex="rowIndex">
+                <tr>
+                    <td class="d-flex justify-content-center">{{entity.applicaitonName}}</td>
+                    <td class="d-flex justify-content-center">{{entity.commFunction}}</td>
+                    <td class="d-flex justify-content-center">{{entity.actualCompReplaced}}</td>
+                    <td class="d-flex justify-content-center">{{entity.feedbackSubject}}</td>
+                    <td class="d-flex justify-content-center">{{entity.feedbackApp | removetag}}</td>
+                    <td class="d-flex justify-content-center">
+                        <i class="pi pi-minus-circle text-danger" (click)="removefeedback(entity)"
+                            title="Remove Feedback"></i>
+                        <i class="pi pi-plus-circle text-success" (click)="openFeedbackModal(entity)"
+                            title="Add Feedback"></i>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td [attr.colspan]="2">
+                        No Feedback
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="d-flex justify-content-center">
+                        <i class="pi pi-plus-circle text-success" (click)="openFeedbackModal()"
+                            title="Add Feedback"></i>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </dxi-item>
+    <dxi-item title="About Feedback Resp">
+
+    </dxi-item> -->
+</dx-tab-panel>
+
+<div class="col-12 p-2" [hidden]="hideAnalysisBtn">
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <dx-button stylingMode="contained" text="Add Analysis" type="success" [width]="120" (onClick)="saveAnalysis()">
+        </dx-button>
+        <dx-button stylingMode="contained" text="Cancel" type="danger" [width]="120">
+        </dx-button>
+    </div>
+</div>
+
+<!------ Tooltip ------->
+<p-toast class="custom-toast" position="top-center" key="tooltip" (onClose)="closeTooltip()" [baseZIndex]="5000">
+    <ng-template let-message pTemplate="message">
+        <div class="flex flex-column" style="flex: 1">
+            <div class="text-center">
+                <br />
+                <br />
+                <p style="text-align: left;">{{message.detail}}</p>
+            </div>
+            <div class="col-12 p-2">
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <button type="button" pButton (click)="closeTooltip()" label="Got it"
+                        class="p-button-secondary"></button>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</p-toast>
