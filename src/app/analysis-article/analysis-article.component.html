@@ -1,0 +1,81 @@
+
+    <div class="row justify-content-center" style="width: 100%;">
+          <div class="col-12">
+           
+          <div class="row p-3">
+              <div class="card">
+                  <div class="card-body">
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <button type="button" class="btn btn-info" (click)="showArticleModal()" >Add Article</button>
+                    </div>
+                  </div>
+              </div>
+          </div>
+            <div class="row p-3" *ngFor="let item of articleList">
+                <br />
+                <div class="card">
+                    <div class="card-body article">
+                        <h5 class="card-title">{{item.heading}}</h5>
+                        <div class="card summary">
+                            <div class="card-body">
+                                <h5 class="card-title" style="color:#8000ff">Analysis Stats</h5>
+                                <div class="col-sm-12">
+                                    <h6>Analysis : {{item.status.totalAnalysis}}</h6>
+                                    <h6 style="color: #f74a5e;">Error : {{item.status.totalError}}</h6>
+                                    <h6 style="color: #1dd21d;">Compensator : {{item.status.totalCompensator}}</h6>
+                                    <h6 style="color: #0dcaf0;">Feedback : {{item.status.totalFeedback}}</h6>
+                                    <h6 style="color: #ff5c6f;">Problem : {{item.status.totalProblem}}</h6>
+                                    <h6 style="color: #ffc107;">Question : {{item.status.totalQuestion}}</h6>
+                                    <h6 style="color: #21a026;">Answer : {{item.status.totalAnswer}}</h6>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="card-text text-justify" style="min-height: 179px;">
+                            {{item.text | removetag}}
+                        </p>
+
+                        <div class="col-sm-12">
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                <button type="button" class="btn btn-info" (click)="addAnalysis(item)" >Add Analysis</button>
+                                <button type="button" class="btn btn-warning" >Add Comment</button>
+                              </div>
+                        </div>
+
+                        <!-- <div class="summary">
+                    <h1>Corner</h1>
+                </div> -->
+
+
+                    </div>
+                </div>
+                <br />
+            </div>
+        </div>
+    </div>
+
+    <!-- <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Supporting Modal</h5>
+            <div class="col-sm-12">
+                <div class="pull-right">
+                    <button class="btn btn-sm btn-primary  p-2" pButton type="button"
+                    (click)="compensator()"     
+                    label="Compensator"></button> &nbsp;
+                    <button class="btn btn-sm btn-primary  p-2" pButton type="button"
+                    (click)="error()"     
+                    label="Error"></button> &nbsp;
+                    <button class="btn btn-sm btn-primary  p-2" pButton type="button"
+                    (click)="question()"  
+                    label="Question"></button>
+                    &nbsp;
+                    <button class="btn btn-sm btn-primary  p-2" pButton type="button"
+                    (click)="answer()"  
+                    label="Answer"></button>
+                    &nbsp;
+                    <button class="btn btn-sm btn-primary  p-2" pButton type="button"
+                    (click)="feedback()"  
+                    label="Feedback"></button>
+                </div>
+            </div>
+        </div>
+    </div> -->
