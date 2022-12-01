@@ -1,0 +1,142 @@
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <form #compensatorForm="ngForm">
+                <!-- <div class="input-group mb-3">
+                    <span class="input-group-text compensator-label" id="basic-addon3">Actual Compensator</span>
+                    <input type="text" class="form-control" name="actualCompensator" [(ngModel)]="analysisCompensator.actualCompensator" aria-describedby="basic-addon3" >
+                    <input type="hidden" name="analysisId" [(ngModel)]="analysisCompensator.analysisId"/>
+                    <input type="hidden" name="aricleId" [(ngModel)]="analysisCompensator.aricleId"/>
+                      
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon3">Actual Error To Replace</span>
+                    <select class="form-select" aria-label="select" name="errorId" [(ngModel)]="analysisCompensator.errorId">
+                        <option value=""></option>
+                        <option *ngFor="let item of errorList" [value]="item.value">{{item.text | slice:0:50}}
+                        </option>
+                    </select>
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text compensator-label" id="basic-addon3">In Actual App/Comm</span>
+                    <input type="text" class="form-control" name="inActualAppComm" [(ngModel)]="analysisCompensator.inActualAppComm" aria-describedby="basic-addon3" readonly >
+                </div> -->
+
+
+
+                <div class="form-group">
+                    <label for="actualCompensator" class="form-label label-text">Actual Compensator
+                        <p-badge value="!" (click)="showTooltip('actualCompensatorMessage')">
+                        </p-badge>
+                    </label>
+                    <input type="text" name="actualCompensator" pInputText [(ngModel)]="analysisCompensator.actualCompensator"/>
+                    <input type="hidden" name="analysisId" [(ngModel)]="analysisCompensator.analysisId"/>
+                    <input type="hidden" name="aricleId" [(ngModel)]="analysisCompensator.aricleId"/>
+                </div>
+                
+                <div class="form-group">
+                    <label for="errorId" class="form-label label-text">Actual Error To Replace
+                        <p-badge value="!" (click)="showTooltip('errorToReplaceMessage')">
+                        </p-badge>
+                    </label>
+                    <p-dropdown name="errorId" [editable]="true" [options]="errorList" [(ngModel)]="analysisCompensator.errorId"
+                        optionLabel="text" optionValue="value"></p-dropdown>
+                </div>
+                <div class="form-group">
+                    <label for="inActualAppComm" class="form-label label-text">In Actual App/Comm
+                        <p-badge value="!" (click)="showTooltip('inActualApplication')">
+                        </p-badge>
+                    </label>
+                    <p-dropdown name="inActualAppComm" [editable]="true"  [options]="actualAppList" [(ngModel)]="analysisCompensator.inActualAppComm"
+                    optionLabel="text" optionValue="value"></p-dropdown>
+                    <!-- <input type="text" name="inActualAppComm"  pInputText [(ngModel)]="analysisCompensator.inActualAppComm" [readonly]="true"/> -->
+                </div>
+                
+
+                <!-- <div class="row">
+                    <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon3">Compensator Date</span>
+                            <input type="text" class="form-control" name="compensatorDate" [value]="analysisCompensator.compensatorDateTime | date:'fullDate'" aria-describedby="basic-addon3"  readonly>
+                            <input type="hidden" name="compensatorDateTime" [(ngModel)]="analysisCompensator.compensatorDateTime"/>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon3">Compensator Time</span>
+                            <input type="text" class="form-control" name="compensatorTime" [value]="analysisCompensator.compensatorDateTime | date:'shortTime'" aria-describedby="basic-addon3" readonly>
+                        </div>
+                    </div>
+                </div> -->
+
+
+                <div class="row">
+                    <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
+                        <div class="form-group">
+                            <label for="analysisFrom" class="form-label label-text">Compensator Date
+                                <!-- <p-badge value="!" pTooltip="{{tooltip.entityErrorPointToMessage}}" tooltipPosition="top">
+                                </p-badge> -->
+                            </label>
+                            <input type="text" pInputText  value="{{analysisCompensator.compensatorDateTime | date:'fullDate'}}" [readonly]='true'/>
+                            <input type="hidden" name="compensatorDateTime" [(ngModel)]="analysisCompensator.compensatorDateTime"/>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+                        <div class="form-group">
+                            <label for="analysisFrom" class="form-label label-text">Compensator Time
+                                <!-- <p-badge value="!" pTooltip="{{tooltip.entityErrorPointToMessage}}" tooltipPosition="top">
+                                </p-badge> -->
+                            </label>
+                            <input type="text" pInputText value="{{analysisCompensator.compensatorDateTime  | date:'shortTime'}}" [readonly]="true" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <!-- <div class="input-group">
+                        <span class="input-group-text" style="background-color: #ffff;border: none;"
+                            id="basic-addon3">Compensator Description</span>
+                    </div> -->
+                    <label for="analysisFrom" class="form-label label-text">Compensator Description
+                        <p-badge value="!" (click)="showTooltip('compensatorDescription')">
+                        </p-badge>
+                    </label>
+                    <p-editor name="compensatorDescription" [(ngModel)]="analysisCompensator.compensatorDescription"  [style]="{'height':'280px'}"></p-editor>
+                </div>
+                <div class="col-12 p-2">
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <dx-button stylingMode="contained" text="Save" type="success" [width]="120"
+                            (onClick)="save(compensatorForm)">
+                        </dx-button>
+                        <dx-button stylingMode="contained" text="Cancel" type="danger" [width]="120">
+                        </dx-button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!------ Tooltip ------->
+<p-toast class="custom-toast" position="top-center" key="tooltip" (onClose)="closeTooltip()" [baseZIndex]="50000">
+    <ng-template let-message pTemplate="message">
+        <div class="flex flex-column" style="flex: 1">
+            <div class="text-center">
+                <br />
+                <br />
+                <p style="text-align: left;">{{message.detail}}</p>
+            </div>
+            <div class="col-12 p-2">
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <button type="button" pButton (click)="closeTooltip()" label="Got it"
+                        class="p-button-secondary"></button>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</p-toast>
