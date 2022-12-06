@@ -1,0 +1,38 @@
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <form>
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon3">Guideline Text</span>
+                    <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3" name="guidelineText" [(ngModel)]="guideLine.guidelineText">
+                  </div>
+                  <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon3">Guideline Num</span>
+                    <input type="number" class="form-control" id="basic-url" aria-describedby="basic-addon3" name="guidelineNumber" [(ngModel)]="guideLine.guidelineNumber">
+                  </div>
+                  <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon3">Guideline Link</span>
+                    <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3" name="guidelineLink" [(ngModel)]="guideLine.guidelineLink">
+                  </div>
+
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="isUseguideText" [(ngModel)]="guideLine.isUseGuideText">
+                    <label class="form-check-label" for="inlineCheckbox1">Use Guideline Text</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox2" name="isUseguideLink" [(ngModel)]="guideLine.isUseGuideLink">
+                    <label class="form-check-label" for="inlineCheckbox2">Use Guideline Link</label>
+                  </div>
+                  <div class="col-12 p-2">
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <dx-button stylingMode="contained" text="Save Analysis" type="success" [width]="120"
+                            (onClick)="applyData()">
+                        </dx-button>
+                        <dx-button stylingMode="contained" text="Cancel" type="danger" [width]="120">
+                        </dx-button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
