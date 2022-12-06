@@ -1,0 +1,113 @@
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <form #errorForm="ngForm">
+                <!-- <div class="input-group mb-3">
+                    <span class="input-group-text error-label" id="basic-addon3">Actual Error</span>
+                    <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3" name="actualError" [(ngModel)]="analysisError.actualError">
+                    <input type="hidden" name="analysisId" [(ngModel)]="analysisError.analysisId">
+                    <input type="hidden" name="aricleId" [(ngModel)]="analysisError.aricleId"/>
+                </div> -->
+                <div class="form-group">
+                    <label for="analysisFrom" class="form-label label-text">Actual Error
+                        <p-badge value="!" (click)="showTooltip('actualErrorMessage')">
+                        </p-badge>
+                    </label>
+                    <input type="text" name="actualError" pInputText [(ngModel)]="analysisError.actualError"/>
+                    <input type="hidden" name="analysisId" [(ngModel)]="analysisError.analysisId">
+                    <input type="hidden" name="aricleId" [(ngModel)]="analysisError.aricleId"/>
+                </div>
+                <!-- <div class="input-group mb-3">
+                    <span class="input-group-text error-label" id="basic-addon3">From Actual Comm/App</span>
+                    <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3" name="fromActualComm" [(ngModel)]="analysisError.fromActualComm">
+                </div> -->
+                <div class="form-group">
+                    <label for="analysisFrom" class="form-label label-text">From Actual Comm/App
+                        <p-badge value="!" (click)="showTooltip('fromActualApplication')">
+                        </p-badge>
+                    </label>
+                    <input type="text" pInputText [(ngModel)]="analysisError.fromActualComm"/>
+                </div>
+                <!-- <div class="input-group mb-3">
+                    <span class="input-group-text error-label" id="basic-addon3">Entity Error Point To</span>
+                    <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3" name="errorPointTo" [(ngModel)]="analysisError.errorPointTo">
+                </div> -->
+                <div class="form-group">
+                    <label for="analysisFrom" class="form-label label-text">Entity Error Point To
+                        <p-badge value="!" (click)="showTooltip('entityErrorPointToMessage')">
+                        </p-badge>
+                    </label>
+                    <input type="text" name="errorPointTo" pInputText [(ngModel)]="analysisError.errorPointTo"/>
+                </div>
+                <div class="row">
+                    <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
+                        <!-- <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon3">Error Date</span>
+                            <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3" name="errorDate" value="{{analysisError.errorDateTime | date:'fullDate'}}" [readonly]='true'>
+                            <input type="hidden" name="errorDateTime" [(ngModel)]="analysisError.errorDateTime"/>
+                        </div> -->
+                        <div class="form-group">
+                            <label for="analysisFrom" class="form-label label-text">Error Date
+                                <!-- <p-badge value="!" pTooltip="{{tooltip.entityErrorPointToMessage}}" tooltipPosition="top">
+                                </p-badge> -->
+                            </label>
+                            <input type="text" pInputText  value="{{analysisError.errorDateTime | date:'fullDate'}}" [readonly]='true'/>
+                            <input type="hidden" name="errorDateTime" [(ngModel)]="analysisError.errorDateTime"/>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+                        <!-- <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon3">Error Time</span>
+                            <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3" name="errorTime" value="{{analysisError.errorDateTime  | date:'shortTime'}}" [readonly]='true'>
+                        </div> -->
+                        <div class="form-group">
+                            <label for="analysisFrom" class="form-label label-text">Error Time
+                                <!-- <p-badge value="!" pTooltip="{{tooltip.entityErrorPointToMessage}}" tooltipPosition="top">
+                                </p-badge> -->
+                            </label>
+                            <input type="text" pInputText value="{{analysisError.errorDateTime  | date:'shortTime'}}" [readonly]="true" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <!-- <label class="card-title" id="basic-addon3">Error Description</label> -->
+                    <label for="errorDescription" class="form-label label-text">Error Description
+                        <p-badge value="!" (click)="showTooltip('errorDescriptionMessage')">
+                        </p-badge>
+                    </label>
+                    <p-editor name="errorDescription" [(ngModel)]="analysisError.errorDescription" [style]="{'height':'280px'}"></p-editor>
+                </div>
+                <div class="col-12 p-2">
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <dx-button stylingMode="contained" text="Save" type="success" [width]="120"
+                            (onClick)="applyData()">
+                        </dx-button>
+                        <dx-button stylingMode="contained" text="Cancel" type="danger" [width]="120">
+                        </dx-button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!------ Tooltip ------->
+<p-toast class="custom-toast" position="top-center" key="tooltip" (onClose)="closeTooltip()" [baseZIndex]="50000">
+    <ng-template let-message pTemplate="message">
+        <div class="flex flex-column" style="flex: 1">
+            <div class="text-center">
+                <br />
+                <br />
+                <p style="text-align: left;">{{message.detail}}</p>
+            </div>
+            <div class="col-12 p-2">
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <button type="button" pButton (click)="closeTooltip()" label="Got it"
+                        class="p-button-secondary"></button>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</p-toast>

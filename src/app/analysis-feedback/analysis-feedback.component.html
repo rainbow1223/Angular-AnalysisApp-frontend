@@ -1,0 +1,57 @@
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <form [formGroup]="form" (ngSubmit)="save(form.value)">
+                <div class="form-group">
+                    <label for="applicaitonName" class="form-label label-text">Application Name</label>
+                    <input type="text" name="applicaitonName" pInputText formControlName="applicaitonName"/>
+                    <small *ngIf="(f['applicaitonName'].dirty || f['applicaitonName'].touched || (submitted && f['applicaitonName'].errors)) && f['applicaitonName'].invalid" class="p-error block">This field is required.</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="commFunction" class="form-label label-text">Communication Function</label>
+                    <input type="text" name="commFunction" pInputText formControlName="commFunction"/>
+                    <small *ngIf="(f['commFunction'].dirty || f['commFunction'].touched || (submitted && f['commFunction'].errors)) && f['commFunction'].invalid" class="p-error block">This field is required.</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="errorId" class="form-label label-text">Actual Error Substituted</label>
+                    <p-dropdown name="errorId" [options]="errorList" formControlName="errorId"
+                        optionLabel="text" optionValue="value"
+                        placeholder="Select" [showClear]="true"
+                        [ngClass]="{ 'ng-invalid ng-dirty': submitted && f['errorId'].errors }"></p-dropdown>
+                    <small *ngIf="(f['errorId'].dirty || f['errorId'].touched || (submitted && f['errorId'].errors)) && f['errorId'].invalid" class="p-error block">This field is required.</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="compensatorId" class="form-label label-text">Actual Compensator Replaced</label>
+                    <p-dropdown name="compensatorId" [options]="compensatorList"  (onChange)="onChangeCompensator($event)" formControlName="compensatorId"
+                        optionLabel="text" optionValue="value"
+                        placeholder="Select" [showClear]="true"
+                        [ngClass]="{ 'ng-invalid ng-dirty': submitted && f['compensatorId'].errors }"></p-dropdown>
+                    <small *ngIf="(f['compensatorId'].dirty || f['compensatorId'].touched || (submitted && f['compensatorId'].errors)) && f['compensatorId'].invalid" class="p-error block">This field is required.</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="feedbackSubject" class="form-label label-text">Feedback Subject</label>
+                    <input type="text" name="feedbackSubject" pInputText formControlName="feedbackSubject"/>
+                    <small *ngIf="(f['feedbackSubject'].dirty || f['feedbackSubject'].touched || (submitted && f['feedbackSubject'].errors)) && f['feedbackSubject'].invalid" class="p-error block">This field is required.</small>
+                </div>
+                <div class="form-group">
+                    <label for="feedbackApp" class="form-label label-text">Feedback Application</label>
+                    <p-editor name="feedbackApp" formControlName="feedbackApp" [style]="{'height':'320px'}"></p-editor>
+                    <small *ngIf="(f['feedbackApp'].dirty || f['feedbackApp'].touched || (submitted && f['feedbackApp'].errors)) && f['feedbackApp'].invalid" class="p-error block">This field is required.</small>
+                </div>
+                <div class="col-12 p-2">
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <dx-button stylingMode="contained" text="Save" type="success" [width]="120"
+                            [useSubmitBehavior]="true">
+                        </dx-button>
+                        <dx-button stylingMode="contained" (onClick)="closeModal()" text="Cancel" type="danger" [width]="120">
+                        </dx-button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
