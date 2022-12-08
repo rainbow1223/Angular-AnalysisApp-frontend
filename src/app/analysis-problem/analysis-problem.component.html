@@ -1,0 +1,78 @@
+<div class="container">
+  <div class="card">
+    <div class="card-body">
+      <form [formGroup]="form" (ngSubmit)="save(form.value)">
+        <div class="form-group">
+          <label for="actualProblem" class="form-label label-text">Actual Problem
+            <p-badge value="!" (click)="showTooltip('actualProblemMessage')" >
+                  </p-badge>
+          </label>
+          <input type="text" name="actualProblem" pInputText formControlName="actualProblem"
+            [ngClass]="{ 'ng-invalid ng-dirty': submitted && f['actualProblem'].errors }" />
+          <small
+            *ngIf="(f['actualProblem'].dirty || f['actualProblem'].touched || (submitted && f['actualProblem'].errors)) && f['actualProblem'].invalid"
+            class="p-error block">This field is required.</small>
+        </div>
+        <div class="form-group">
+          <label for="problemName" class="form-label label-text">Problem Name
+            <p-badge value="!" (click)="showTooltip('problemNameMessage')">
+                  </p-badge>
+          </label>
+          <input type="text" name="problemName" pInputText formControlName="problemName"
+            [ngClass]="{ 'ng-invalid ng-dirty': submitted && f['problemName'].errors }" />
+          <small
+            *ngIf="(f['problemName'].dirty || f['problemName'].touched || (submitted && f['problemName'].errors)) && f['problemName'].invalid"
+            class="p-error block">This field is required.</small>
+        </div>
+        <div class="form-group">
+          <label for="errorId" class="form-label label-text">From Actual Error
+            <p-badge value="!" (click)="showTooltip('fromActulErrorMessage')">
+            </p-badge>
+          </label>
+          <p-dropdown name="errorId" [options]="errorList" formControlName="errorId" optionLabel="text"
+            optionValue="value" placeholder="Select" [showClear]="true"
+            [ngClass]="{ 'ng-invalid ng-dirty': submitted && f['errorId'].errors }"></p-dropdown>
+          <small
+            *ngIf="(f['errorId'].dirty || f['errorId'].touched || (submitted && f['errorId'].errors)) && f['errorId'].invalid"
+            class="p-error block">This field is required.</small>
+        </div>
+        <div class="row">
+          <label for="problemDescription" class="form-label label-text">Problem Description
+            <p-badge value="!" (click)="showTooltip('problemDescriptionMessage')">
+            </p-badge>
+          </label>
+          <p-editor name="problemDescription" formControlName="problemDescription" [style]="{'height':'280px'}">
+          </p-editor>
+        </div>
+        <div class="col-12 p-2">
+          <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <dx-button stylingMode="contained" text="Save" type="success" [width]="120" [useSubmitBehavior]="true">
+            </dx-button>
+            <dx-button stylingMode="contained" text="Cancel" type="danger" [width]="120">
+            </dx-button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<!------ Tooltip ------->
+<p-toast class="custom-toast" position="top-center" key="tooltip" (onClose)="closeTooltip()" [baseZIndex]="50000">
+  <ng-template let-message pTemplate="message">
+      <div class="flex flex-column" style="flex: 1">
+          <div class="text-center">
+              <br />
+              <br />
+              <p style="text-align: left;">{{message.detail}}</p>
+          </div>
+          <div class="col-12 p-2">
+              <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                  <button type="button" pButton (click)="closeTooltip()" label="Got it"
+                      class="p-button-secondary"></button>
+              </div>
+          </div>
+      </div>
+  </ng-template>
+</p-toast>
