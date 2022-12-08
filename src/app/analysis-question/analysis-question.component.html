@@ -1,0 +1,50 @@
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <form #questionForm="ngForm">
+                <div class="form-group">
+                    <label for="questionPointTo" class="form-label label-text">Entity Question Point To
+                        <p-badge value="!" (click)="showTooltip('questionPointToMessage')">
+                        </p-badge>
+                    </label>
+                    <input type="text" pInputText name="questionPointTo" [(ngModel)]="analysisQuestion.questionPointTo" />
+                    <input type="hidden" name="aricleId" [(ngModel)]="analysisQuestion.aricleId"/>
+                </div>
+                <div class="row">
+                    <label for="actualQuestion" class="form-label label-text">Actual Question
+                        <p-badge value="!" (click)="showTooltip('actualQuestionMessage')">
+                        </p-badge>
+                    </label>
+                    <p-editor name="actualQuestion" [(ngModel)]="analysisQuestion.actualQuestion" [style]="{'height':'320px'}"></p-editor>
+                </div>
+                <div class="col-12 p-2">
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <dx-button stylingMode="contained" text="Save" type="success" [width]="120"
+                            (onClick)="save(questionForm)">
+                        </dx-button>
+                        <dx-button stylingMode="contained" text="Cancel" type="danger" [width]="120">
+                        </dx-button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!------ Tooltip ------->
+<p-toast class="custom-toast" position="top-center" key="tooltip" (onClose)="closeTooltip()" [baseZIndex]="50000">
+    <ng-template let-message pTemplate="message">
+        <div class="flex flex-column" style="flex: 1">
+            <div class="text-center">
+                <br />
+                <br />
+                <p style="text-align: left;">{{message.detail}}</p>
+            </div>
+            <div class="col-12 p-2">
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <button type="button" pButton (click)="closeTooltip()" label="Got it"
+                        class="p-button-secondary"></button>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</p-toast>
