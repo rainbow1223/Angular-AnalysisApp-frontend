@@ -1,0 +1,52 @@
+<div class="container">
+    <div class="card">
+      <div class="card-body">
+        <form [formGroup]="form" (ngSubmit)="save(form.value)">
+          <div class="form-group">
+            <label for="heading" class="form-label label-text">Heading</label>
+            <input type="text" name="heading" pInputText formControlName="heading"
+              [ngClass]="{ 'ng-invalid ng-dirty': submitted && f['heading'].errors }" />
+            <small
+              *ngIf="(f['heading'].dirty || f['heading'].touched || (submitted && f['heading'].errors)) && f['heading'].invalid"
+              class="p-error block">This field is required.</small>
+          </div>
+          <div class="form-group">
+            <label for="text" class="form-label label-text">Text</label>
+            <!-- <textarea name="text" pInputText formControlName="text" rows="10" [ngClass]="{ 'ng-invalid ng-dirty': submitted && f['text'].errors }"></textarea> -->
+            <p-editor name="text" formControlName="text" [style]="{'height':'280px'}" [ngClass]="{ 'ng-invalid ng-dirty': submitted && f['text'].errors }"></p-editor>
+            <small
+              *ngIf="(f['text'].dirty || f['text'].touched || (submitted && f['text'].errors)) && f['text'].invalid"
+              class="p-error block">This field is required.</small>
+          </div>
+          <div class="col-12 p-2">
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+              <dx-button stylingMode="contained" text="Save" type="success" [width]="120" [useSubmitBehavior]="true">
+              </dx-button>
+              <!-- <dx-button stylingMode="contained" text="Cancel" type="danger" [width]="120">
+              </dx-button> -->
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+  
+  <!------ Tooltip ------->
+  <p-toast class="custom-toast" position="top-center" key="tooltip" (onClose)="closeTooltip()" [baseZIndex]="50000">
+    <ng-template let-message pTemplate="message">
+        <div class="flex flex-column" style="flex: 1">
+            <div class="text-center">
+                <br />
+                <br />
+                <p style="text-align: left;">{{message.detail}}</p>
+            </div>
+            <div class="col-12 p-2">
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <button type="button" pButton (click)="closeTooltip()" label="Got it"
+                        class="p-button-secondary"></button>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+  </p-toast>
